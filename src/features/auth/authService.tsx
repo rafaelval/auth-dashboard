@@ -1,19 +1,27 @@
-type LoginData = {
-  email: string;
+import { api } from "../../services/api";
+import type { User } from "./types";
+
+interface LoginCredentials {
+  username: string;
   password: string;
-};
+}
 
-export const loginRequest = async ({ email, password }: LoginData) => {
-  await new Promise((res) => setTimeout(res, 800)); // simula API
+export const loginRequest = async ({
+  username,
+  password,
+}: LoginCredentials): Promise<User> => {
+  const { data } = await api.post("/auth/login", {
+    username,
+    password,
+    expiresInMins: 30,
+  });
 
-  if (email === "admin@test.com" && password === "123456") {
-    return {
-      id: 1,
-      name: "Rafael",
-      email,
-      token: "fake-jwt",
-    };
-  }
-
-  throw new Error("Invalid credentials");
+  return {
+    id: data.id,
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    image: data.image,
+    token: data.token,
+  };
 };

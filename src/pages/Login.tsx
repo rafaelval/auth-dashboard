@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "../features/auth/authStore";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const login = useAuthStore((state) => state.login);
   const loading = useAuthStore((state) => state.loading);
+  const user = useAuthStore((state) => state.user);
+  const navigate = useNavigate()
 
-  const [username, setUsername] = useState("kminchelle");
-  const [password, setPassword] = useState("0lelplR");
+  const [username, setUsername] = useState("emilys");
+  const [password, setPassword] = useState("emilyspass");
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

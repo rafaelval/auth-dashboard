@@ -1,7 +1,14 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { api } from "../../services/api";
-import type { AuthState } from "./types";
+import { loginRequest } from "./authService";
+import type { User } from "./types";
+
+interface AuthState {
+  user: User | null;
+  loading: boolean;
+  login: (username: string, password: string) => Promise<void>;
+  logout: () => void;
+}
 
 export const useAuthStore = create<AuthState>()(
   persist(
@@ -10,25 +17,28 @@ export const useAuthStore = create<AuthState>()(
       loading: false,
 
       login: async (username, password) => {
-        set({ loading: true });
-
         try {
-          const { data } = await api.post("/auth/login", {
-            username,
-            password,
-          });
+          set({ loading: true });
+
+          const data = await loginRequest({ username, password });
 
           set({ user: data, loading: false });
+
+          localStorage.setItem("token", data.token);
         } catch (error) {
           set({ loading: false });
-          throw error;
+          console.error(error);
+          alert("Credenciales incorrectas");
         }
       },
 
-      logout: () => set({ user: null }),
+      logout: () => {
+        localStorage.removeItem("token");
+        set({ user: null });
+      },
     }),
     {
       name: "auth-storage",
-    },
-  ),
+    }
+  )
 );
