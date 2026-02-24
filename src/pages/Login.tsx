@@ -6,7 +6,7 @@ export default function Login() {
   const login = useAuthStore((state) => state.login);
   const loading = useAuthStore((state) => state.loading);
   const user = useAuthStore((state) => state.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("emilys");
   const [password, setPassword] = useState("emilyspass");

@@ -22,6 +22,6 @@ export const loginRequest = async ({
     lastName: data.lastName,
     email: data.email,
     image: data.image,
-    token: data.token,
+    token: data.accessToken,
   };
 };
