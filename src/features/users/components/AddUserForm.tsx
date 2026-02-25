@@ -4,16 +4,18 @@ import type { User } from "../types";
 
 interface Props {
   onClose: () => void;
+  user?: User;
 }
 
-export const AddUserForm = ({ onClose }: Props) => {
+export const UserForm = ({ onClose, user }: Props) => {
   const addUser = useUsersStore((s) => s.addUser);
+  const updateUser = useUsersStore((s) => s.updateUser);
 
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    age: "",
+    firstName: user?.firstName ?? "",
+    lastName: user?.lastName ?? "",
+    email: user?.email ?? "",
+    age: user?.age?.toString() ?? "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,56 +24,67 @@ export const AddUserForm = ({ onClose }: Props) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!form.firstName || !form.email || !form.age) return;
 
-    const newUser: User = {
-      id: Date.now(),
-      firstName: form.firstName,
-      lastName: form.lastName,
-      email: form.email,
-      age: Number(form.age),
-      username: form.firstName.toLowerCase(),
-      image: "https://i.pravatar.cc/150",
-    };
+    if (user) {
+      updateUser({
+        ...user,
+        ...form,
+        age: Number(form.age),
+      });
+    } else {
+      addUser({
+        id: Date.now(),
+        ...form,
+        age: Number(form.age),
+        username: form.firstName.toLowerCase(),
+        image: "https://i.pravatar.cc/150",
+      });
+    }
 
-    addUser(newUser);
     onClose();
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <h2 className="text-xl font-bold">Add user</h2>
+      <h2 className="text-xl font-bold">
+        {user ? "Edit user" : "Add user"}
+      </h2>
 
       <input
         name="firstName"
-        placeholder="First name"
+        value={form.firstName}
         onChange={handleChange}
+        placeholder="First name"
         className="input"
       />
+
       <input
         name="lastName"
-        placeholder="Last name"
+        value={form.lastName}
         onChange={handleChange}
+        placeholder="Last name"
         className="input"
       />
+
       <input
         name="email"
-        placeholder="Email"
+        value={form.email}
         onChange={handleChange}
+        placeholder="Email"
         className="input"
       />
+
       <input
         name="age"
         type="number"
-        placeholder="Age"
         value={form.age}
         onChange={handleChange}
+        placeholder="Age"
         className="input"
-        min="1"
       />
 
       <button className="bg-blue-600 text-white w-full py-2 rounded">
-        Save
+        {user ? "Update" : "Save"}
       </button>
     </form>
   );

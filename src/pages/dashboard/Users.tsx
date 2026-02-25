@@ -3,15 +3,19 @@ import { useUsersStore } from "../../features/users/usersStore";
 import { PageContainer } from "../../shared/components/PageContainer";
 import { TableSkeleton } from "../../shared/components/TableSkeleton";
 import { Modal } from "../../shared/components/Modal";
-import { AddUserForm } from "../../features/users/components/AddUserForm";
+import { UserForm } from "../../features/users/components/AddUserForm";
 import { Link } from "react-router-dom";
+import type { User } from "../../features/users/types";
+import { ConfirmDeleteModal } from "../../features/users/components/ConfirmDeleteModal";
 
 const Users = () => {
   const { users, loading, error, fetchUsers } = useUsersStore();
-
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<User | null>(null);
+  const deletingId = useUsersStore((s) => s.deletingId);
 
   const usersPerPage = 6;
   const deleteUser = useUsersStore((s) => s.deleteUser);
@@ -19,6 +23,17 @@ const Users = () => {
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
+
+  const openDeleteModal = (user: User) => setUserToDelete(user);
+
+  const closeDeleteModal = () => setUserToDelete(null);
+
+  const confirmDelete = () => {
+    if (userToDelete) {
+      deleteUser(userToDelete.id);
+      closeDeleteModal();
+    }
+  };
 
   const filteredUsers = useMemo(() => {
     return users.filter((user) =>
@@ -53,7 +68,10 @@ const Users = () => {
           />
 
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              setSelectedUser(null);
+              setIsOpen(true);
+            }}
             className="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700"
           >
             Add user
@@ -75,7 +93,7 @@ const Users = () => {
             <table className="w-full text-left border-collapse">
               <tbody>
                 {paginatedUsers.map((user) => (
-                  <tr key={user.id} className="border-b hover:bg-gray-50">
+                  <tr key={user.id} className="font-medium text-blue-600">
                     <td className="p-3 flex items-center gap-3">
                       <img
                         src={user.image}
@@ -95,10 +113,23 @@ const Users = () => {
                     <td className="p-3 text-gray-500">@{user.username}</td>
                     <td className="p-3 text-right">
                       <button
-                        onClick={() => deleteUser(user.id)}
-                        className="text-red-500 hover:underline text-sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openDeleteModal(user);
+                        }}
+                        className="text-red-600"
                       >
                         Delete
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedUser(user);
+                          setIsOpen(true);
+                        }}
+                        className="text-blue-600 hover:underline text-sm pl-2"
+                      >
+                        Edit
                       </button>
                     </td>
                   </tr>
@@ -132,8 +163,17 @@ const Users = () => {
       )}
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <AddUserForm onClose={() => setIsOpen(false)} />
+        <UserForm
+          onClose={() => setIsOpen(false)}
+          user={selectedUser || undefined}
+        />
       </Modal>
+      <ConfirmDeleteModal
+        user={userToDelete}
+        onClose={closeDeleteModal}
+        onConfirm={confirmDelete}
+        loading={deletingId === userToDelete?.id}
+      />
     </PageContainer>
   );
 };

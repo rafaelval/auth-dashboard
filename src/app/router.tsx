@@ -23,10 +23,6 @@ export const router = createBrowserRouter([
           { index: true, element: <Dashboard /> },
           { path: "users", element: <Users /> },
           { path: "users/:id", element: <UserDetails /> },
-          {
-            path: "users/:id",
-            element: <UserDetails />,
-          },
         ],
       },
     ],

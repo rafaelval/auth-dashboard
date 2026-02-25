@@ -2,6 +2,9 @@ import { useParams } from "react-router-dom";
 import { useUsersStore } from "../../features/users/usersStore";
 import { PageContainer } from "../../shared/components/PageContainer";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Modal } from "../../shared/components/Modal";
+import { UserForm } from "../../features/users/components/AddUserForm";
 
 const UserDetails = () => {
   const navigate = useNavigate();
@@ -9,9 +12,10 @@ const UserDetails = () => {
   const user = useUsersStore((state) =>
     state.users.find((u) => u.id === Number(id)),
   );
+  const [isOpen, setIsOpen] = useState(false);
 
   if (!user) return <p>User not found</p>;
-
+  
   return (
     <PageContainer title="User details">
       <button
@@ -29,6 +33,12 @@ const UserDetails = () => {
             </h2>
             <p className="text-gray-500">@{user.username}</p>
           </div>
+          <button
+              onClick={() => setIsOpen(true)}
+              className="bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              Edit user
+            </button>
         </div>
 
         <div className="space-y-2 text-gray-600">
@@ -43,6 +53,9 @@ const UserDetails = () => {
           </p>
         </div>
       </div>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <UserForm user={user} onClose={() => setIsOpen(false)} />
+      </Modal>
     </PageContainer>
   );
 };
