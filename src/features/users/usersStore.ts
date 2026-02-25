@@ -7,6 +7,7 @@ interface UsersState {
   loading: boolean;
   error: string | null;
   fetchUsers: () => Promise<void>;
+  addUser: (user: User) => void;
 }
 
 export const useUsersStore = create<UsersState>((set) => ({
@@ -25,4 +26,8 @@ export const useUsersStore = create<UsersState>((set) => ({
       set({ error: "Error fetching users", loading: false });
     }
   },
+  addUser: (user) =>
+  set((state) => ({
+    users: [user, ...state.users],
+  })),
 }));
