@@ -5,12 +5,14 @@ import SideBar from "../components/Sidebar";
 
 export const DashboardLayout = () => {
   return (
-    <div className="flex">
+    <div className="flex h-screen overflow-hidden w-full">
       <SideBar />
 
-      <div className="flex-1 min-h-screen bg-slate-100">
+      <div className="flex-1 flex flex-col bg-slate-100">
         <Topbar />
-        <main className="p-6">
+
+        <main className="flex-1 overflow-y-auto p-6 w-full">
+          
           <Outlet />
         </main>
       </div>

@@ -16,7 +16,7 @@ export default function Login() {
       navigate("/", { replace: true });
     }
   }, [user, navigate]);
-console.log("LOGIN RENDER");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await login(username, password);

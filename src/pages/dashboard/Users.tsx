@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useUsersStore } from "../../features/users/usersStore";
+import { PageContainer } from "../../shared/components/PageContainer";
 
 const Users = () => {
   const users = useUsersStore((state) => state.users);
@@ -15,13 +16,11 @@ const Users = () => {
   if (error) return <p className="p-4 text-red-500">{error}</p>;
 
   return (
-    <div className="p-6 bg-white rounded shadow">
-      <h1 className="text-2xl font-bold mb-6">Users</h1>
-
+    <PageContainer title="Users">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b bg-gray-100">
+            <tr className="border-b bg-gray-100 text-gray-600">
               <th className="p-3">User</th>
               <th className="p-3">Email</th>
               <th className="p-3">Age</th>
@@ -43,16 +42,14 @@ const Users = () => {
                 </td>
 
                 <td className="p-3 text-gray-600">{user.email}</td>
-
                 <td className="p-3">{user.age}</td>
-
                 <td className="p-3 text-gray-500">@{user.username}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+    </PageContainer>
   );
 };
 
