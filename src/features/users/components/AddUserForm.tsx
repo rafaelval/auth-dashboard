@@ -13,21 +13,23 @@ export const AddUserForm = ({ onClose }: Props) => {
     firstName: "",
     lastName: "",
     email: "",
+    age: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!form.firstName || !form.email || !form.age) return;
 
     const newUser: User = {
       id: Date.now(),
       firstName: form.firstName,
       lastName: form.lastName,
       email: form.email,
-      age: 0,
+      age: Number(form.age),
       username: form.firstName.toLowerCase(),
       image: "https://i.pravatar.cc/150",
     };
@@ -40,9 +42,33 @@ export const AddUserForm = ({ onClose }: Props) => {
     <form onSubmit={handleSubmit} className="space-y-4">
       <h2 className="text-xl font-bold">Add user</h2>
 
-      <input name="firstName" placeholder="First name" onChange={handleChange} className="input" />
-      <input name="lastName" placeholder="Last name" onChange={handleChange} className="input" />
-      <input name="email" placeholder="Email" onChange={handleChange} className="input" />
+      <input
+        name="firstName"
+        placeholder="First name"
+        onChange={handleChange}
+        className="input"
+      />
+      <input
+        name="lastName"
+        placeholder="Last name"
+        onChange={handleChange}
+        className="input"
+      />
+      <input
+        name="email"
+        placeholder="Email"
+        onChange={handleChange}
+        className="input"
+      />
+      <input
+        name="age"
+        type="number"
+        placeholder="Age"
+        value={form.age}
+        onChange={handleChange}
+        className="input"
+        min="1"
+      />
 
       <button className="bg-blue-600 text-white w-full py-2 rounded">
         Save

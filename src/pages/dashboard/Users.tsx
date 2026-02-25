@@ -14,6 +14,7 @@ const Users = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const usersPerPage = 6;
+  const deleteUser = useUsersStore((s) => s.deleteUser);
 
   useEffect(() => {
     fetchUsers();
@@ -23,7 +24,7 @@ const Users = () => {
     return users.filter((user) =>
       `${user.firstName} ${user.lastName} ${user.email} ${user.username}`
         .toLowerCase()
-        .includes(search.toLowerCase())
+        .includes(search.toLowerCase()),
     );
   }, [users, search]);
 
@@ -31,7 +32,7 @@ const Users = () => {
 
   const paginatedUsers = filteredUsers.slice(
     (currentPage - 1) * usersPerPage,
-    currentPage * usersPerPage
+    currentPage * usersPerPage,
   );
 
   return (
@@ -76,7 +77,10 @@ const Users = () => {
                 {paginatedUsers.map((user) => (
                   <tr key={user.id} className="border-b hover:bg-gray-50">
                     <td className="p-3 flex items-center gap-3">
-                      <img src={user.image} className="w-10 h-10 rounded-full" />
+                      <img
+                        src={user.image}
+                        className="w-10 h-10 rounded-full"
+                      />
 
                       <Link
                         to={`/users/${user.id}`}
@@ -89,6 +93,14 @@ const Users = () => {
                     <td className="p-3 text-gray-600">{user.email}</td>
                     <td className="p-3">{user.age}</td>
                     <td className="p-3 text-gray-500">@{user.username}</td>
+                    <td className="p-3 text-right">
+                      <button
+                        onClick={() => deleteUser(user.id)}
+                        className="text-red-500 hover:underline text-sm"
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
