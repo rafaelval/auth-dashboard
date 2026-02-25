@@ -1,30 +1,25 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 
 
 import ProtectedRoute from "./ProtectedRoute";
 import { DashboardLayout } from "../shared/layout/DashboardLayout";
 import Dashboard from "../pages/dashboard/Dashboard";
+import PublicRoute from "./PublicRoute";
 
 export const router = createBrowserRouter([
   {
-    path: "/login",
-    element: <Login />,
+    element: <PublicRoute />,
+    children: [{ path: "/login", element: <Login /> }],
   },
   {
     element: <ProtectedRoute />,
     children: [
       {
-        path: "/dashboard",
+        path: "/",
         element: <DashboardLayout />,
-        children: [
-          { index: true, element: <Dashboard /> },
-        ],
+        children: [{ index: true, element: <Dashboard /> }],
       },
     ],
-  },
-  {
-    path: "*",
-    element: <Navigate to="/dashboard" />,
   },
 ]);

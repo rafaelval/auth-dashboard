@@ -1,21 +1,10 @@
-import { useEffect } from "react";
-import { api } from "../../services/api";
+import { useAuth } from "../../features/auth/useAuth";
+
 
 const Dashboard = () => {
-  useEffect(() => {
-    const getAuthUser = async () => {
-      try {
-        const { data } = await api.get("/auth/me");
-        return data
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const { user } = useAuth();
 
-    getAuthUser();
-  }, []);
-
-  return <div>Dashboard</div>;
+  return <div>Bienvenido {user?.firstName}</div>;
 };
 
 export default Dashboard;
