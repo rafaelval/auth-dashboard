@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 
-
 import ProtectedRoute from "./ProtectedRoute";
 import { DashboardLayout } from "../shared/layout/DashboardLayout";
 import Dashboard from "../pages/dashboard/Dashboard";
 import PublicRoute from "./PublicRoute";
+import Users from "../pages/dashboard/Users";
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +18,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <DashboardLayout />,
-        children: [{ index: true, element: <Dashboard /> }],
+        children: [
+          { index: true, element: <Dashboard /> },
+          { path: "users", element: <Users /> },
+        ],
       },
     ],
   },

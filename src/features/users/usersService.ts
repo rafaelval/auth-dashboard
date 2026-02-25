@@ -1,6 +1,11 @@
 import { api } from "../../services/api";
+import type { User } from "./types";
 
-export const getUsers = async () => {
-  const { data } = await api.get("/users");
+interface UsersResponse {
+  users: User[];
+}
+
+export const getUsers = async (): Promise<User[]> => {
+  const { data } = await api.get<UsersResponse>("/users");
   return data.users;
 };
