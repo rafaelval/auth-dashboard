@@ -23,3 +23,14 @@
 .animate-scaleIn {
   animation: scaleIn .2s ease-out;
 }
+
+@keyframes toastAnimation {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.animate-toast {
+  animation: toastAnimation 2s ease-in-out forwards;
+}

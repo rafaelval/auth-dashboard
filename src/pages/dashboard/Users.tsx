@@ -7,6 +7,7 @@ import { UserForm } from "../../features/users/components/AddUserForm";
 import { Link } from "react-router-dom";
 import type { User } from "../../features/users/types";
 import { ConfirmDeleteModal } from "../../features/users/components/ConfirmDeleteModal";
+import { useToastStore } from "../../shared/store/useToastStore";
 
 const Users = () => {
   const { users, loading, error, fetchUsers } = useUsersStore();
@@ -16,6 +17,7 @@ const Users = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<User | null>(null);
   const deletingId = useUsersStore((s) => s.deletingId);
+  const showToast = useToastStore((s) => s.show);
 
   const usersPerPage = 6;
   const deleteUser = useUsersStore((s) => s.deleteUser);
@@ -29,11 +31,13 @@ const Users = () => {
   const closeDeleteModal = () => setUserToDelete(null);
 
   const confirmDelete = () => {
-    if (userToDelete) {
-      deleteUser(userToDelete.id);
-      closeDeleteModal();
-    }
-  };
+  if (userToDelete) {
+    deleteUser(userToDelete.id);
+    showToast("User deleted successfully");
+    closeDeleteModal();
+    
+  }
+};
 
   const filteredUsers = useMemo(() => {
     return users.filter((user) =>
