@@ -38,13 +38,13 @@ const UserDetails = () => {
     <PageContainer title="User details">
       <button
         onClick={() => navigate(-1)}
-        className="mb-4 text-sm text-blue-600 hover:underline"
+        className="mb-4 text-sm text-blue-600 hover:underline dark:text-blue-400"
       >
         ← Back
       </button>
 
-      <div className="bg-white p-6 rounded shadow max-w-xl">
-        <div className="flex items-center justify-between mb-6">
+      <div className="bg-white dark:bg-slate-900 dark:border-gray-400 p-6 dark:shadow-gray-300 rounded shadow max-w-xl">
+        <div className="flex items-center justify-between mb-6 dark:text-gray-200">
           <div className="flex items-center gap-4">
             <img src={user.image} className="w-20 h-20 rounded-full" />
 
@@ -52,7 +52,7 @@ const UserDetails = () => {
               <h2 className="text-xl font-bold">
                 {user.firstName} {user.lastName}
               </h2>
-              <p className="text-gray-500">@{user.username}</p>
+              <p className="text-gray-500 dark:text-gray-200">@{user.username}</p>
             </div>
           </div>
 
@@ -73,7 +73,7 @@ const UserDetails = () => {
           </div>
         </div>
 
-        <div className="space-y-2 text-gray-600">
+        <div className="space-y-2 text-gray-600 dark:text-gray-200">
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Age:</strong> {user.age}</p>
           <p><strong>ID:</strong> {user.id}</p>

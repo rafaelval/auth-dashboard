@@ -3,12 +3,18 @@ import { PageContainer } from "../../shared/components/PageContainer";
 
 const Dashboard = () => {
   const { user } = useAuth();
-console.log(user)
+
   return (
     <PageContainer>
-      <p className="text-gray-600">
-        Bienvenido {user?.firstName}
-      </p>
+      {!user ? (
+        <div className="animate-pulse">
+          <div className="h-4 bg-gray-200 rounded w-32"></div>
+        </div>
+      ) : (
+        <p className="text-gray-600 dark:text-gray-200">
+          Bienvenido {user.firstName}
+        </p>
+      )}
     </PageContainer>
   );
 };

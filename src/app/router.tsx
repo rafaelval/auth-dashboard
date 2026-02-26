@@ -7,6 +7,7 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import PublicRoute from "./PublicRoute";
 import Users from "../pages/dashboard/Users";
 import UserDetails from "../pages/dashboard/UserDetails";
+import Settings from "../pages/dashboard/Settings";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
           { index: true, element: <Dashboard /> },
           { path: "users", element: <Users /> },
           { path: "users/:id", element: <UserDetails /> },
+          { path: "settings", element: <Settings /> },
         ],
       },
     ],

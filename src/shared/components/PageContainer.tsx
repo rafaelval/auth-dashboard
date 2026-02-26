@@ -14,15 +14,15 @@ export const PageContainer = ({
   actions,
 }: PageContainerProps) => {
   return (
-    <div className="bg-white rounded shadow p-6 w-full">
+    <div className="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm">
       {(title || actions) && (
         <div className="flex items-center justify-between mb-6">
           <div>
             {title && (
-              <h1 className="text-2xl font-bold text-gray-700">{title}</h1>
+              <h1 className="text-gray-800 dark:text-gray-100">{title}</h1>
             )}
             {subtitle && (
-              <p className="text-sm text-gray-400">{subtitle}</p>
+              <p className="text-gray-500 dark:text-gray-400">{subtitle}</p>
             )}
           </div>
 

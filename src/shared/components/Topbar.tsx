@@ -5,12 +5,12 @@ export default function Topbar() {
   const logout = useAuthStore((state) => state.logout);
 
   return (
-    <div className="flex justify-between items-center bg-white p-4 shadow w-full">
-      <h1 className="font-semibold text-gray-600">Dashboard</h1>
+    <div className="flex justify-between items-center bg-white dark:shadow-gray-300 dark:bg-slate-900 p-4 shadow w-full">
+      <h1 className="font-semibold text-gray-600 dark:text-gray-400">Dashboard</h1>
 
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-gray-600 dark:text-gray-300">
             {user?.firstName} {user?.lastName}
           </span>
 

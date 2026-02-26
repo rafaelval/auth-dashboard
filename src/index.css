@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @keyframes fadeIn {
   from { opacity: 0 }
   to { opacity: 1 }
@@ -33,4 +35,7 @@
 
 .animate-toast {
   animation: toastAnimation 2s ease-in-out forwards;
+}
+#body {
+background-color:black,
 }

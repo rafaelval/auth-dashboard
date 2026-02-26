@@ -59,7 +59,7 @@ const Users = () => {
       title="Users"
       subtitle={`${users.length} total users`}
       actions={
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 dark:text-gray-200">
           <input
             type="text"
             placeholder="Search user..."
@@ -94,10 +94,10 @@ const Users = () => {
       ) : (
         <>
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <table className="w-full text-left text-gray-700 dark:text-gray-200">
               <tbody>
                 {paginatedUsers.map((user) => (
-                  <tr key={user.id} className="font-medium text-blue-600">
+                  <tr key={user.id} className="border-b dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-800">
                     <td className="p-3 flex items-center gap-3">
                       <img
                         src={user.image}
@@ -112,9 +112,9 @@ const Users = () => {
                       </Link>
                     </td>
 
-                    <td className="p-3 text-gray-600">{user.email}</td>
+                    <td className="p-3 text-gray-600 dark:text-gray-200">{user.email}</td>
                     <td className="p-3">{user.age}</td>
-                    <td className="p-3 text-gray-500">@{user.username}</td>
+                    <td className="p-3 text-gray-500 dark:text-gray-200">@{user.username}</td>
                     <td className="p-3 text-right">
                       <button
                         onClick={(e) => {
@@ -131,7 +131,7 @@ const Users = () => {
                           setSelectedUser(user);
                           setIsOpen(true);
                         }}
-                        className="text-blue-600 hover:underline text-sm pl-2"
+                        className="text-blue-600 hover:underline text-sm pl-2 dark:text-blue-400"
                       >
                         Edit
                       </button>
@@ -142,7 +142,7 @@ const Users = () => {
             </table>
           </div>
 
-          <div className="flex justify-end mt-6 gap-2">
+          <div className="flex justify-end mt-6 gap-2 dark:text-gray-200">
             <button
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((p) => p - 1)}

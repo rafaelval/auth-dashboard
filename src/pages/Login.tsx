@@ -23,12 +23,12 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-screen items-center justify-center bg-[linear-gradient(140deg,rgba(218,221,224,1)_0%,rgba(27,51,66,1)_91%)]">
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-500 p-6 shadow rounded w-80"
+        className="bg-gray-400 p-6 shadow rounded w-80"
       >
-        <h2 className="text-xl mb-4 text-white">Login</h2>
+        <h2 className="text-xl mb-4 text-white text-shadow-lg/50">Login</h2>
 
         <input
           className="border p-2 w-full mb-2"
@@ -48,7 +48,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="bg-blue-500 text-white px-4 py-2 w-full disabled:opacity-50"
+          className="bg-blue-500 text-white px-4 py-2 w-full disabled:opacity-50 shadow-lg/50 rounded-md"
         >
           {loading ? "Loading..." : "Login"}
         </button>

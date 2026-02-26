@@ -63,15 +63,47 @@ export const UserForm = ({ onClose, user }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <h2 className="text-xl font-bold">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-1">
+      <h2 className="text-xl font-bold text-center sm:text-left">
         {isEditMode ? "Edit user" : "Add user"}
       </h2>
 
-      <input name="firstName" value={form.firstName} onChange={handleChange} placeholder="First name" className="input" required />
-      <input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Last name" className="input" required />
-      <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="Email" className="input" required />
-      <input name="age" type="number" value={form.age} onChange={handleChange} placeholder="Age" className="input" required />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <input
+          name="firstName"
+          value={form.firstName}
+          onChange={handleChange}
+          placeholder="First name"
+          className="dark:bg-slate-700 border input w-full px-2"
+          required
+        />
+        <input
+          name="lastName"
+          value={form.lastName}
+          onChange={handleChange}
+          placeholder="Last name"
+          className="dark:bg-slate-700 border input w-full px-2"
+          required
+        />
+        <input
+          name="email"
+          type="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="Email"
+          className="dark:bg-slate-700 border input w-full px-2"
+          required
+        />
+        <input
+          name="age"
+          type="number"
+          value={form.age}
+          onChange={handleChange}
+          placeholder="Age"
+          className="dark:bg-slate-700 border input w-full px-2"
+          required
+        />
+      </div>
 
       <button className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700 transition">
         {isEditMode ? "Update user" : "Save user"}
