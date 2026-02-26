@@ -58,6 +58,7 @@ export const useUsersStore = create<UsersState>()(
         })),
       getUserById: (id: number) => get().users.find((u) => u.id === id),
     }),
+
     {
       name: "users-storage", // localStorage key
     },

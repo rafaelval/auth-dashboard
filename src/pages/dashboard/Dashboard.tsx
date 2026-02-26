@@ -3,7 +3,7 @@ import { PageContainer } from "../../shared/components/PageContainer";
 
 const Dashboard = () => {
   const { user } = useAuth();
-
+console.log(user)
   return (
     <PageContainer>
       <p className="text-gray-600">
