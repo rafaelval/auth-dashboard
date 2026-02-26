@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useUsersStore } from "../usersStore";
 import { useToastStore } from "../../../shared/store/useToastStore";
 import type { User } from "../types";
+import { useT } from "../../../context/useT";
 
 interface Props {
   onClose: () => void;
@@ -12,6 +13,7 @@ export const UserForm = ({ onClose, user }: Props) => {
   const addUser = useUsersStore((s) => s.addUser);
   const updateUser = useUsersStore((s) => s.updateUser);
   const showToast = useToastStore((s) => s.show);
+  const t = useT()
 
   const isEditMode = !!user;
 
@@ -44,7 +46,7 @@ export const UserForm = ({ onClose, user }: Props) => {
         age: ageNumber,
       });
 
-      showToast("User updated successfully ✅");
+      showToast(t.success);
     } else {
       addUser({
         id: Date.now() + Math.random(),
@@ -56,7 +58,7 @@ export const UserForm = ({ onClose, user }: Props) => {
         image: "https://i.pravatar.cc/150",
       });
 
-      showToast("User created successfully 🎉");
+      showToast(t.created);
     }
 
     onClose();
@@ -65,7 +67,7 @@ export const UserForm = ({ onClose, user }: Props) => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-1">
       <h2 className="text-xl font-bold text-center sm:text-left">
-        {isEditMode ? "Edit user" : "Add user"}
+        {isEditMode ? t.edit : t.add}
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -73,7 +75,7 @@ export const UserForm = ({ onClose, user }: Props) => {
           name="firstName"
           value={form.firstName}
           onChange={handleChange}
-          placeholder="First name"
+          placeholder={t.name}
           className="dark:bg-slate-700 border input w-full px-2"
           required
         />
@@ -81,7 +83,7 @@ export const UserForm = ({ onClose, user }: Props) => {
           name="lastName"
           value={form.lastName}
           onChange={handleChange}
-          placeholder="Last name"
+          placeholder={t.lastname}
           className="dark:bg-slate-700 border input w-full px-2"
           required
         />
@@ -90,7 +92,7 @@ export const UserForm = ({ onClose, user }: Props) => {
           type="email"
           value={form.email}
           onChange={handleChange}
-          placeholder="Email"
+          placeholder={t.email}
           className="dark:bg-slate-700 border input w-full px-2"
           required
         />
@@ -99,14 +101,14 @@ export const UserForm = ({ onClose, user }: Props) => {
           type="number"
           value={form.age}
           onChange={handleChange}
-          placeholder="Age"
+          placeholder={t.age}
           className="dark:bg-slate-700 border input w-full px-2"
           required
         />
       </div>
 
       <button className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700 transition">
-        {isEditMode ? "Update user" : "Save user"}
+        {isEditMode ? t.update : t.save}
       </button>
     </form>
   );

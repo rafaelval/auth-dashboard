@@ -7,10 +7,12 @@ import { UserForm } from "../../features/users/components/AddUserForm";
 import { ConfirmDeleteModal } from "../../features/users/components/ConfirmDeleteModal";
 import { useToastStore } from "../../shared/store/useToastStore";
 import type { User } from "../../features/users/types";
+import { useT } from "../../context/useT";
 
 const UserDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const t = useT();
 
   const user = useUsersStore((state) =>
     state.users.find((u) => u.id === Number(id))
@@ -30,17 +32,17 @@ const UserDetails = () => {
     if (!userToDelete) return;
 
     deleteUser(userToDelete.id);
-    showToast("User deleted successfully 🗑️");
+    showToast(t.successdel);
     navigate("/users");
   };
 
   return (
-    <PageContainer title="User details">
+    <PageContainer title={t.userDetails}>
       <button
         onClick={() => navigate(-1)}
         className="mb-4 text-sm text-blue-600 hover:underline dark:text-blue-400"
       >
-        ← Back
+        ← {t.back}
       </button>
 
       <div className="bg-white dark:bg-slate-900 dark:border-gray-400 p-6 dark:shadow-gray-300 rounded shadow max-w-xl">
@@ -61,14 +63,14 @@ const UserDetails = () => {
               onClick={() => setIsEditOpen(true)}
               className="bg-blue-600 text-white px-4 py-2 rounded"
             >
-              Edit
+              {t.edit}
             </button>
 
             <button
               onClick={() => setUserToDelete(user)}
               className="bg-red-600 text-white px-4 py-2 rounded"
             >
-              Delete
+              {t.del}
             </button>
           </div>
         </div>
@@ -80,12 +82,10 @@ const UserDetails = () => {
         </div>
       </div>
 
-      {/* EDIT MODAL */}
       <Modal isOpen={isEditOpen} onClose={() => setIsEditOpen(false)}>
         <UserForm user={user} onClose={() => setIsEditOpen(false)} />
       </Modal>
 
-      {/* DELETE MODAL */}
       <ConfirmDeleteModal
         user={userToDelete}
         onClose={() => setUserToDelete(null)}

@@ -1,9 +1,10 @@
+import { useT } from "../../context/useT";
 import { useAuth } from "../../features/auth/useAuth";
 import { PageContainer } from "../../shared/components/PageContainer";
 
 const Dashboard = () => {
   const { user } = useAuth();
-
+  const t = useT()
   return (
     <PageContainer>
       {!user ? (
@@ -12,7 +13,7 @@ const Dashboard = () => {
         </div>
       ) : (
         <p className="text-gray-600 dark:text-gray-200">
-          Bienvenido {user.firstName}
+          {t.wellcome} {user.firstName}
         </p>
       )}
     </PageContainer>

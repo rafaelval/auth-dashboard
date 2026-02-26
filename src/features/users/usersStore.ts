@@ -60,7 +60,7 @@ export const useUsersStore = create<UsersState>()(
     }),
 
     {
-      name: "users-storage", // localStorage key
+      name: "users-storage",
     },
   ),
 );

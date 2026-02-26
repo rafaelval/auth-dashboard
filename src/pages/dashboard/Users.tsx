@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import type { User } from "../../features/users/types";
 import { ConfirmDeleteModal } from "../../features/users/components/ConfirmDeleteModal";
 import { useToastStore } from "../../shared/store/useToastStore";
+import { useT } from "../../context/useT";
 
 const Users = () => {
   const { users, loading, error, fetchUsers } = useUsersStore();
@@ -18,6 +19,7 @@ const Users = () => {
   const [userToDelete, setUserToDelete] = useState<User | null>(null);
   const deletingId = useUsersStore((s) => s.deletingId);
   const showToast = useToastStore((s) => s.show);
+  const t = useT();
 
   const usersPerPage = 6;
   const deleteUser = useUsersStore((s) => s.deleteUser);
@@ -56,13 +58,13 @@ const Users = () => {
 
   return (
     <PageContainer
-      title="Users"
-      subtitle={`${users.length} total users`}
+      title={t.users}
+      subtitle={`${users.length} ${t.totalUsers}`}
       actions={
         <div className="flex items-center gap-3 dark:text-gray-200">
           <input
             type="text"
-            placeholder="Search user..."
+            placeholder={t.searchUser}
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -78,7 +80,7 @@ const Users = () => {
             }}
             className="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700"
           >
-            Add user
+            {t.add}
           </button>
         </div>
       }
@@ -123,7 +125,7 @@ const Users = () => {
                         }}
                         className="text-red-600"
                       >
-                        Delete
+                        {t.del}
                       </button>
                       <button
                         onClick={(e) => {
@@ -133,7 +135,7 @@ const Users = () => {
                         }}
                         className="text-blue-600 hover:underline text-sm pl-2 dark:text-blue-400"
                       >
-                        Edit
+                        {t.modify}
                       </button>
                     </td>
                   </tr>
@@ -148,7 +150,7 @@ const Users = () => {
               onClick={() => setCurrentPage((p) => p - 1)}
               className="px-3 py-1 border rounded disabled:opacity-30"
             >
-              Prev
+              {t.prev}
             </button>
 
             <span className="px-3 py-1 text-sm">
@@ -160,7 +162,7 @@ const Users = () => {
               onClick={() => setCurrentPage((p) => p + 1)}
               className="px-3 py-1 border rounded disabled:opacity-30"
             >
-              Next
+              {t.next}
             </button>
           </div>
         </>

@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
+import { useT } from "../../context/useT";
 
 const SideBar = () => {
+  const t = useT();
   return (
     <aside className="w-64 bg-slate-900 text-white min-h-screen p-4">
       <nav className="flex flex-col gap-2">
@@ -16,7 +18,7 @@ const SideBar = () => {
             }`
           }
         >
-          Dashboard
+          {t.dashboard}
         </NavLink>
 
         <NavLink
@@ -29,7 +31,7 @@ const SideBar = () => {
             }`
           }
         >
-          Users
+          {t.users}
         </NavLink>
         <NavLink
           to="settings"
@@ -41,7 +43,7 @@ const SideBar = () => {
             }`
           }
         >
-          Settings
+          {t.settings}
         </NavLink>
 
       </nav>

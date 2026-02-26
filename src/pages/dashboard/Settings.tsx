@@ -1,16 +1,19 @@
 import { PageContainer } from "../../shared/components/PageContainer";
 import { useSettingsStore } from "../../shared/store/useSettingsStore";
+import { useLanguage } from "../../context/useLanguage";
+import { useT } from "../../context/useT";
 
 const Settings = () => {
-  const { theme, toggleTheme, language, setLanguage } = useSettingsStore();
+  const { theme, toggleTheme } = useSettingsStore();
+  const { lang, toggleLang } = useLanguage();
+  const t = useT();
 
   return (
-    <PageContainer title="Settings" subtitle="Manage your preferences">
+    <PageContainer title={t.settings} subtitle={t.preferences}>
       <div className="space-y-6 max-w-xl">
 
-        {/* THEME */}
         <div className="flex items-center justify-between">
-          <span className="font-medium dark:text-gray-200">Dark mode</span>
+          <span className="font-medium dark:text-gray-200">{t.darkMode}</span>
           <button
             onClick={toggleTheme}
             className="px-4 py-2 border rounded dark:text-gray-200"
@@ -19,13 +22,12 @@ const Settings = () => {
           </button>
         </div>
 
-        {/* LANGUAGE */}
         <div className="flex items-center justify-between">
-          <span className="font-medium dark:text-gray-200">Language</span>
+          <span className="font-medium dark:text-gray-200">{t.language}</span>
 
           <select
-            value={language}
-            onChange={(e) => setLanguage(e.target.value as "es" | "en")}
+            value={lang}
+            onChange={() => toggleLang()}
             className="border px-3 py-2 rounded dark:text-gray-200"
           >
             <option value="es" className="dark:text-gray-600">Español</option>
