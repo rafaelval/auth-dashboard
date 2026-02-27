@@ -7,15 +7,15 @@ import { UserForm } from "../../features/users/components/AddUserForm";
 import { ConfirmDeleteModal } from "../../features/users/components/ConfirmDeleteModal";
 import { useToastStore } from "../../shared/store/useToastStore";
 import type { User } from "../../features/users/types";
-import { useT } from "../../context/useT";
+import { useTranslation } from "react-i18next";
 
 const UserDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const t = useT();
+  const { t } = useTranslation();
 
   const user = useUsersStore((state) =>
-    state.users.find((u) => u.id === Number(id))
+    state.users.find((u) => u.id === Number(id)),
   );
 
   const deleteUser = useUsersStore((s) => s.deleteUser);
@@ -32,17 +32,17 @@ const UserDetails = () => {
     if (!userToDelete) return;
 
     deleteUser(userToDelete.id);
-    showToast(t.successdel);
+    showToast(t("successdel"));
     navigate("/users");
   };
 
   return (
-    <PageContainer title={t.userDetails}>
+    <PageContainer title={t("userDetails")}>
       <button
         onClick={() => navigate(-1)}
         className="mb-4 text-sm text-blue-600 hover:underline dark:text-blue-400"
       >
-        ← {t.back}
+        ← {t("back")}
       </button>
 
       <div className="bg-white dark:bg-slate-900 dark:border-gray-400 p-6 dark:shadow-gray-300 rounded shadow max-w-xl">
@@ -54,7 +54,9 @@ const UserDetails = () => {
               <h2 className="text-xl font-bold">
                 {user.firstName} {user.lastName}
               </h2>
-              <p className="text-gray-500 dark:text-gray-200">@{user.username}</p>
+              <p className="text-gray-500 dark:text-gray-200">
+                @{user.username}
+              </p>
             </div>
           </div>
 
@@ -63,22 +65,28 @@ const UserDetails = () => {
               onClick={() => setIsEditOpen(true)}
               className="bg-blue-600 text-white px-4 py-2 rounded"
             >
-              {t.edit}
+              {t("edit")}
             </button>
 
             <button
               onClick={() => setUserToDelete(user)}
               className="bg-red-600 text-white px-4 py-2 rounded"
             >
-              {t.del}
+              {t("del")}
             </button>
           </div>
         </div>
 
         <div className="space-y-2 text-gray-600 dark:text-gray-200">
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Age:</strong> {user.age}</p>
-          <p><strong>ID:</strong> {user.id}</p>
+          <p>
+            <strong>Email:</strong> {user.email}
+          </p>
+          <p>
+            <strong>Age:</strong> {user.age}
+          </p>
+          <p>
+            <strong>ID:</strong> {user.id}
+          </p>
         </div>
       </div>
 

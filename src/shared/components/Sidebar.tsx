@@ -1,12 +1,11 @@
 import { NavLink } from "react-router-dom";
-import { useT } from "../../context/useT";
+import { useTranslation } from "react-i18next";
 
 const SideBar = () => {
-  const t = useT();
+  const { t } = useTranslation();
   return (
     <aside className="w-64 bg-slate-900 text-white min-h-screen p-4">
       <nav className="flex flex-col gap-2">
-
         <NavLink
           to="/"
           end
@@ -18,7 +17,7 @@ const SideBar = () => {
             }`
           }
         >
-          {t.dashboard}
+          {t("dashboard")}
         </NavLink>
 
         <NavLink
@@ -31,7 +30,7 @@ const SideBar = () => {
             }`
           }
         >
-          {t.users}
+          {t("users")}
         </NavLink>
         <NavLink
           to="settings"
@@ -43,9 +42,8 @@ const SideBar = () => {
             }`
           }
         >
-          {t.settings}
+          {t("settings")}
         </NavLink>
-
       </nav>
     </aside>
   );

@@ -19,9 +19,7 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
           ✕
         </button>
 
-        <div className="w-full">
-          {children}
-        </div>
+        <div className="w-full">{children}</div>
       </div>
     </div>
   );

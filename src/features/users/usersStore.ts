@@ -46,17 +46,17 @@ export const useUsersStore = create<UsersState>()(
         set({ deletingId: id });
 
         set((state) => ({
-          users: state.users.filter((u) => u.id !== id),
+          users: state.users.filter((user) => user.id !== id),
           deletingId: null,
         }));
       },
       updateUser: (updatedUser: User) =>
         set((state) => ({
-          users: state.users.map((u) =>
-            u.id === updatedUser.id ? updatedUser : u,
+          users: state.users.map((user) =>
+            user.id === updatedUser.id ? updatedUser : user,
           ),
         })),
-      getUserById: (id: number) => get().users.find((u) => u.id === id),
+      getUserById: (id: number) => get().users.find((user) => user.id === id),
     }),
 
     {

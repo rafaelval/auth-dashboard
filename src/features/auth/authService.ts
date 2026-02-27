@@ -6,10 +6,7 @@ interface LoginCredentials {
   password: string;
 }
 
-export const loginRequest = async ({
-  username,
-  password,
-}: LoginCredentials): Promise<User> => {
+export const loginRequest = async ({username,password}: LoginCredentials): Promise<User> => {
   const { data } = await api.post("/auth/login", {
     username,
     password,
