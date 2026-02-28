@@ -104,6 +104,7 @@ const Users = () => {
                   >
                     <td className="p-3 flex items-center gap-3">
                       <img
+                        alt=""
                         src={user.image}
                         className="w-10 h-10 rounded-full"
                       />

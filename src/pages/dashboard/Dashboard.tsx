@@ -3,11 +3,12 @@ import { useAuth } from "../../features/auth/useAuth";
 import { PageContainer } from "../../shared/components/PageContainer";
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const { t } = useTranslation();
+
   return (
     <PageContainer>
-      {!user ? (
+      {loading || !user ? (
         <div className="animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-32"></div>
         </div>

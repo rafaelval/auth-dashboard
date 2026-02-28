@@ -48,7 +48,7 @@ const UserDetails = () => {
       <div className="bg-white dark:bg-slate-900 dark:border-gray-400 p-6 dark:shadow-gray-300 rounded shadow max-w-xl">
         <div className="flex items-center justify-between mb-6 dark:text-gray-200">
           <div className="flex items-center gap-4">
-            <img src={user.image} className="w-20 h-20 rounded-full" />
+            <img src={user.image} alt="" className="w-20 h-20 rounded-full" />
 
             <div>
               <h2 className="text-xl font-bold">
