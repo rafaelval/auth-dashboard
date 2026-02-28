@@ -2,9 +2,9 @@ export const TableSkeleton = () => {
   return (
     <div className="animate-pulse">
       {[...Array(6)].map((_, i) => (
-        <div
-          key={`skeleton-row-${i}`}
-          className="h-12 bg-gray-200 rounded mb-2"
+        <div 
+          key={`skeleton-row-${i}`}  // <- Prefijo + índice es mejor que solo índice
+          className="h-12 bg-gray-200 rounded mb-2" 
         />
       ))}
     </div>
