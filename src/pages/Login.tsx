@@ -1,25 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react"; // Eliminamos useEffect
 import { useAuthStore } from "../features/auth/authStore";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const login = useAuthStore((state) => state.login);
   const loading = useAuthStore((state) => state.loading);
-  const user = useAuthStore((state) => state.user);
+  // const user = useAuthStore((state) => state.user); // Ya no necesitas capturar 'user' del estado global aquí si no lo usas en la vista
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("emilys");
   const [password, setPassword] = useState("emilyspass");
 
-  useEffect(() => {
-    if (user) {
-      navigate("/", { replace: true });
-    }
-  }, [user, navigate]);
+  // EL useEffect SE HA ELIMINADO
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Ejecutamos el login
     await login(username, password);
+    
+    // Verificamos el usuario directamente desde el store (sin esperar re-render)
+    // Esto funciona porque Zustand actualiza el estado de forma síncrona por defecto
+    if (useAuthStore.getState().user) {
+      navigate("/", { replace: true });
+    }
   };
 
   return (

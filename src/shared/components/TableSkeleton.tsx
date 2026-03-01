@@ -1,9 +1,12 @@
 export const TableSkeleton = () => {
+  // Creamos un array del 1 al 6 para usar como keys en lugar del índice del map
+  const skeletonRows = Array.from({ length: 6 }, (_, index) => index + 1);
+
   return (
     <div className="animate-pulse">
-      {[...Array(6)].map((_, i) => (
+      {skeletonRows.map((row) => (
         <div 
-          key={`skeleton-row-${i}`}  // <- Prefijo + índice es mejor que solo índice
+          key={row}
           className="h-12 bg-gray-200 rounded mb-2" 
         />
       ))}

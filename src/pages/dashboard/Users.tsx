@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import { useUsersStore } from "../../features/users/usersStore";
 import { PageContainer } from "../../shared/components/PageContainer";
 import { TableSkeleton } from "../../shared/components/TableSkeleton";
@@ -10,13 +10,58 @@ import { ConfirmDeleteModal } from "../../features/users/components/ConfirmDelet
 import { useToastStore } from "../../shared/store/useToastStore";
 import { useTranslation } from "react-i18next";
 
+type UsersLocalState = {
+  selectedUser: User | null;
+  search: string;
+  currentPage: number;
+  isOpen: boolean;
+  userToDelete: User | null;
+};
+
+type UsersLocalAction =
+  | { type: "setSelectedUser"; user: User | null }
+  | { type: "setSearch"; search: string }
+  | { type: "setCurrentPage"; page: number }
+  | { type: "setIsOpen"; isOpen: boolean }
+  | { type: "setUserToDelete"; user: User | null };
+
+const initialUsersLocalState: UsersLocalState = {
+  selectedUser: null,
+  search: "",
+  currentPage: 1,
+  isOpen: false,
+  userToDelete: null,
+};
+
+function usersLocalReducer(
+  state: UsersLocalState,
+  action: UsersLocalAction,
+): UsersLocalState {
+  switch (action.type) {
+    case "setSelectedUser":
+      return { ...state, selectedUser: action.user };
+    case "setSearch":
+      return { ...state, search: action.search };
+    case "setCurrentPage":
+      return { ...state, currentPage: action.page };
+    case "setIsOpen":
+      return { ...state, isOpen: action.isOpen };
+    case "setUserToDelete":
+      return { ...state, userToDelete: action.user };
+    default:
+      return state;
+  }
+}
+
 const Users = () => {
   const { users, loading, error, fetchUsers } = useUsersStore();
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [search, setSearch] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isOpen, setIsOpen] = useState(false);
-  const [userToDelete, setUserToDelete] = useState<User | null>(null);
+  const [state, dispatch] = useReducer(
+    usersLocalReducer,
+    initialUsersLocalState,
+  );
+
+  const { selectedUser, search, currentPage, isOpen, userToDelete } = state;
+
   const deletingId = useUsersStore((s) => s.deletingId);
   const showToast = useToastStore((s) => s.show);
   const { t } = useTranslation();
@@ -28,9 +73,11 @@ const Users = () => {
     fetchUsers();
   }, [fetchUsers]);
 
-  const openDeleteModal = (user: User) => setUserToDelete(user);
+  const openDeleteModal = (user: User) =>
+    dispatch({ type: "setUserToDelete", user });
 
-  const closeDeleteModal = () => setUserToDelete(null);
+  const closeDeleteModal = () =>
+    dispatch({ type: "setUserToDelete", user: null });
 
   const confirmDelete = () => {
     if (userToDelete) {
@@ -66,16 +113,16 @@ const Users = () => {
             placeholder={t("searchUser")}
             value={search}
             onChange={(e) => {
-              setSearch(e.target.value);
-              setCurrentPage(1);
+              dispatch({ type: "setSearch", search: e.target.value });
+              dispatch({ type: "setCurrentPage", page: 1 });
             }}
             className="border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
           />
 
           <button
             onClick={() => {
-              setSelectedUser(null);
-              setIsOpen(true);
+              dispatch({ type: "setSelectedUser", user: null });
+              dispatch({ type: "setIsOpen", isOpen: true });
             }}
             className="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700"
           >
@@ -137,8 +184,8 @@ const Users = () => {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setSelectedUser(user);
-                          setIsOpen(true);
+                          dispatch({ type: "setSelectedUser", user });
+                          dispatch({ type: "setIsOpen", isOpen: true });
                         }}
                         className="text-blue-600 hover:underline text-sm pl-2 dark:text-blue-400"
                       >
@@ -154,7 +201,9 @@ const Users = () => {
           <div className="flex justify-end mt-6 gap-2 dark:text-gray-200">
             <button
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((p) => p - 1)}
+              onClick={() =>
+                dispatch({ type: "setCurrentPage", page: currentPage - 1 })
+              }
               className="px-3 py-1 border rounded disabled:opacity-30"
             >
               {t("prev")}
@@ -166,7 +215,9 @@ const Users = () => {
 
             <button
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((p) => p + 1)}
+              onClick={() =>
+                dispatch({ type: "setCurrentPage", page: currentPage + 1 })
+              }
               className="px-3 py-1 border rounded disabled:opacity-30"
             >
               {t("next")}
@@ -175,9 +226,12 @@ const Users = () => {
         </>
       )}
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => dispatch({ type: "setIsOpen", isOpen: false })}
+      >
         <UserForm
-          onClose={() => setIsOpen(false)}
+          onClose={() => dispatch({ type: "setIsOpen", isOpen: false })}
           user={selectedUser || undefined}
         />
       </Modal>
