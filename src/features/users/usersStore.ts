@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { getUsers } from "./usersService";
-import type { User } from "./types";
+import type { User } from "../auth/types";
 
 interface UsersState {
   users: User[];

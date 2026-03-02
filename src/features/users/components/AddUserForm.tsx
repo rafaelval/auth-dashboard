@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useUsersStore } from "../usersStore";
 import { useToastStore } from "../../../shared/store/useToastStore";
-import type { User } from "../types";
+import type { User } from "../../auth/types";
 import { useTranslation } from "react-i18next";
 
 interface Props {

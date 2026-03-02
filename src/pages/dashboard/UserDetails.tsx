@@ -6,7 +6,7 @@ import { Modal } from "../../shared/components/Modal";
 import { UserForm } from "../../features/users/components/AddUserForm";
 import { ConfirmDeleteModal } from "../../features/users/components/ConfirmDeleteModal";
 import { useToastStore } from "../../shared/store/useToastStore";
-import type { User } from "../../features/users/types";
+import type { User } from "../../features/auth/types";
 import { useTranslation } from "react-i18next";
 
 const UserDetails = () => {
