@@ -56,8 +56,6 @@ export const UserForm = ({ onClose, user }: Props) => {
         age: ageNumber,
         username: form.firstName.toLowerCase(),
         image: "https://i.pravatar.cc/150",
-        password: undefined,
-        token: undefined,
       });
 
       showToast(t("created"));

@@ -10,6 +10,8 @@ export interface User {
   token?:string;
 }
 
+export type NewUser = Omit<User, 'password' | 'token'>;
+
 export interface AuthState {
   user: User | null;
   loading: boolean;
