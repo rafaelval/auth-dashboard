@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useUsersStore } from "../usersStore";
 import { useToastStore } from "../../../shared/store/useToastStore";
-import type { User } from "../../auth/types";
+import type { User } from "../types";
 import { useTranslation } from "react-i18next";
 
 interface Props {
@@ -56,6 +56,7 @@ export const UserForm = ({ onClose, user }: Props) => {
         age: ageNumber,
         username: form.firstName.toLowerCase(),
         image: "https://i.pravatar.cc/150",
+        password: undefined
       });
 
       showToast(t("created"));

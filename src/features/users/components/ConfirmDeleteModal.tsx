@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import type { User } from "../../auth/types"
+import type { User } from "../types";
+
 interface Props {
   user: User | null;
   onClose: () => void;

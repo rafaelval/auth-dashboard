@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { getUsers } from "./usersService";
-import type { User } from "../auth/types";
+import type { User } from "./types";
 
 interface UsersState {
   users: User[];
@@ -10,7 +10,7 @@ interface UsersState {
   deletingId: number | null;
 
   fetchUsers: () => Promise<void>;
-  addUser: (user: Omit<User, "password" | "token">) => void;
+  addUser: (user: User) => void;
   deleteUser: (id: number) => void;
   updateUser: (user: User) => void;
 }
@@ -39,7 +39,7 @@ export const useUsersStore = create<UsersState>()(
 
       addUser: (user) =>
         set((state) => ({
-          users: [user as User, ...state.users],
+          users: [user, ...state.users],
         })),
 
       deleteUser: (id) => {

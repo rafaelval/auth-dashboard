@@ -3,14 +3,9 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  age: number;
-  username: string;
   image: string;
-  password?:string;
-  token?:string;
+  token: string;
 }
-
-export type NewUser = Omit<User, 'password' | 'token'>;
 
 export interface AuthState {
   user: User | null;
