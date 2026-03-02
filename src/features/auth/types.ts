@@ -3,8 +3,10 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  age: number;
+  username: string;
   image: string;
-  token: string;
+  password?:string;
 }
 
 export interface AuthState {
