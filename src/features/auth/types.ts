@@ -7,6 +7,7 @@ export interface User {
   username: string;
   image: string;
   password?:string;
+  token:string;
 }
 
 export interface AuthState {
