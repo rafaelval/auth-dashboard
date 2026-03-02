@@ -6,4 +6,5 @@ export interface User {
   age: number;
   username: string;
   image: string;
+  password:string;
 }

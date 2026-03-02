@@ -29,5 +29,7 @@
       "prev": "Prev",
       "next": "Next",
       "searchUser": "Search User...",
-      "search": "Search"
+      "search": "Search",
+      "username": "Username",
+      "password": "Password"
 }

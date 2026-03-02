@@ -79,13 +79,19 @@ const UserDetails = () => {
 
         <div className="space-y-2 text-gray-600 dark:text-gray-200">
           <p>
-            <strong>Email:</strong> {user.email}
+            <strong>{t("email")}:</strong> {user.email}
           </p>
           <p>
-            <strong>Age:</strong> {user.age}
+            <strong>{t("age")}:</strong> {user.age}
           </p>
           <p>
             <strong>ID:</strong> {user.id}
+          </p>
+          <p>
+            <strong>{t("username")}:</strong> {user.username}
+          </p>
+          <p>
+            <strong>{t("password")}:</strong> {user.password}
           </p>
         </div>
       </div>
