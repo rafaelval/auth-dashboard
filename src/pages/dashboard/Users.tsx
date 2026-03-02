@@ -5,7 +5,7 @@ import { TableSkeleton } from "../../shared/components/TableSkeleton";
 import { Modal } from "../../shared/components/Modal";
 import { UserForm } from "../../features/users/components/AddUserForm";
 import { Link } from "react-router-dom";
-import type { User } from "../../features/auth/types";
+import type { User } from "../../features/users/types";
 import { ConfirmDeleteModal } from "../../features/users/components/ConfirmDeleteModal";
 import { useToastStore } from "../../shared/store/useToastStore";
 import { useTranslation } from "react-i18next";

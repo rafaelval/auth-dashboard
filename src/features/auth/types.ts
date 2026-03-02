@@ -1,4 +1,4 @@
-export interface User {
+export interface AuthUser {
   id: number;
   firstName: string;
   lastName: string;
@@ -8,7 +8,7 @@ export interface User {
 }
 
 export interface AuthState {
-  user: User | null;
+  user: AuthUser | null;
   loading: boolean;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;

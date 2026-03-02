@@ -1,12 +1,12 @@
 import { api } from "../../services/api";
-import type { User } from "./types";
+import type { AuthUser } from "./types";
 
 interface LoginCredentials {
   username: string;
   password: string;
 }
 
-export const loginRequest = async ({username,password}: LoginCredentials): Promise<User> => {
+export const loginRequest = async ({username,password}: LoginCredentials): Promise<AuthUser> => {
   const { data } = await api.post("/auth/login", {
     username,
     password,
