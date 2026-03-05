@@ -1,73 +1,110 @@
-# React + TypeScript + Vite
+# 🔐 Auth Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern authentication dashboard built with React, TypeScript, and Zustand. Features a complete login flow, protected routes, and user management — powered by the DummyJSON API.
 
-Currently, two official plugins are available:
+📚 **[Full Documentation →](https://rafaelval-auth-dashboard.mintlify.app/quickstart)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Quick Start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- **Node.js 18+**
+- **npm**, **yarn**, or **pnpm**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# Clone the repository
+git clone https://github.com/rafaelval/auth-dashboard.git
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Navigate into the project
+cd auth-dashboard
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Install dependencies
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run the Development Server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+The app will be available at **`http://localhost:5173`**
+
+---
+
+## 🔑 Demo Credentials
+
+This project uses the **[DummyJSON API](https://dummyjson.com/users)** as its backend. You can find the full list of available users and their passwords at:
+
+👉 **https://dummyjson.com/users**
+
+All users listed there are valid and can log in to the dashboard. Each user entry includes their `username` and `password` fields.
+
+**Quick example:**
+
+| Username   | Password      |
+|------------|---------------|
+| `emilys`   | `emilyspass`  |
+| `michaelw` | `michaelwpass`|
+| `sophiab`  | `sophiabpass` |
+
+> Any user from the DummyJSON list works. The password follows the pattern: `{username}pass`
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| [React 18](https://react.dev/) | UI Framework |
+| [TypeScript](https://www.typescriptlang.org/) | Type safety |
+| [Vite](https://vitejs.dev/) | Build tool & dev server |
+| [Zustand](https://zustand-demo.pmnd.rs/) | State management & session persistence |
+| [React Router v6](https://reactrouter.com/) | Routing & protected routes |
+| [Axios](https://axios-http.com/) | HTTP client with interceptors |
+| [DummyJSON](https://dummyjson.com/) | Mock REST API (auth + users) |
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── router.tsx          # Route definitions
+│   └── ProtectedRoute.tsx  # Auth guard component
+├── features/
+│   └── auth/
+│       ├── authStore.tsx   # Zustand auth store
+│       └── authService.ts  # Login API calls
+├── pages/
+│   ├── Login.tsx
+│   ├── Dashboard.tsx
+│   └── Users.tsx
+├── services/
+│   └── api.ts              # Axios instance with interceptors
+└── shared/
+    └── layout/
+        └── DashboardLayout.tsx
+```
+
+---
+
+## 📖 Documentation
+
+Full documentation is available on Mintlify:
+
+- [Introduction](https://rafaelval-auth-dashboard.mintlify.app/introduction)
+- [Quick Start](https://rafaelval-auth-dashboard.mintlify.app/quickstart)
+- [Installation](https://rafaelval-auth-dashboard.mintlify.app/installation)
+- [Configuration](https://rafaelval-auth-dashboard.mintlify.app/configuration)
+
+---
+
+## 📄 License
+
+MIT
